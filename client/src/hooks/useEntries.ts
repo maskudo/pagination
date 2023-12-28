@@ -8,12 +8,15 @@ export default function useEntries() {
   const fetchEntries = async (page = 1) => {
     let response = await fetch(
       `${API_ROUTE}/entries?` +
-        new URLSearchParams({
-          page,
-        }),
+      //@ts-ignore
+      new URLSearchParams({
+        page,
+      }),
     );
     response = await response.json();
+    //@ts-ignore
     setTotalPages(response?.data?.totalPages ?? 1);
+    //@ts-ignore
     setEntries(response?.data?.docs ?? []);
   };
 

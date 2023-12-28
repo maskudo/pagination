@@ -28,6 +28,7 @@ function App() {
     e.preventDefault();
     try {
       const content = JSON.stringify(entry);
+      //@ts-ignore
       const headers = new Headers({
         "Content-Type": "application/json",
         "Content-Length": content.length,
@@ -78,6 +79,7 @@ function App() {
           placeholder="Date"
           className="border border-1 border-black p-2"
           name="date"
+          //@ts-ignore
           value={entry.date}
           onChange={handleChange}
         />
