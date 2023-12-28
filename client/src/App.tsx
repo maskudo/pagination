@@ -41,6 +41,7 @@ function App() {
       response = await response.json();
       setMessage("Entry submitted successfully");
       setEntry(initialEntry);
+      fetchEntries();
     } catch (e) {
       setMessage("Error submitting entry");
     }
