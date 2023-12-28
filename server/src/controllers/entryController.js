@@ -1,6 +1,7 @@
 const Entry = require("../models/entryModel");
+const CustomError = require("../utils/CustomError");
 
-module.exports.getEntries = async (req, res) => {
+module.exports.getEntries = async (req, res, next) => {
   let { page, limit } = req.query;
   page = parseInt(page ?? 1);
   limit = parseInt(limit ?? 5);
@@ -12,42 +13,42 @@ module.exports.getEntries = async (req, res) => {
     );
     res.status(200).json({ data: entries });
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    next(new CustomError(400, e.message));
   }
 };
 
-module.exports.postEntry = async (req, res) => {
+module.exports.postEntry = async (req, res, next) => {
   const { title, body, date } = req.body;
   try {
     const entry = await Entry.create({ title, body, date });
     res.status(201).json({ data: entry });
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    next(new CustomError(400, e.message));
   }
 };
 
-module.exports.deleteEntry = async (req, res) => {
+module.exports.deleteEntry = async (req, res, next) => {
   const { id } = req.params;
   try {
     const entry = await Entry.deleteOne({ _id: id });
     if (!entry.deletedCount) {
-      return res.status(404).json({ message: "Entry not found" });
+      return next(new CustomError(404, "Entry not found"));
     }
     res.status(200).json({ data: "Entry deleted successfully" });
   } catch (e) {
-    res.status(400).json({ message: e.message });
+    next(new CustomError(400, e.message));
   }
 };
 
-module.exports.getEntry = async (req, res) => {
+module.exports.getEntry = async (req, res, next) => {
   const { id } = req.params;
   try {
     const entry = await Entry.findById(id);
     if (!entry) {
-      return res.status(404).json({ message: "No such entry." });
+      return next(new CustomError(404, "Entry not found"));
     }
     res.status(200).json({ data: entry });
   } catch (e) {
-    res.status(400).json({ message: e.message });
+    next(new CustomError(400, e.message));
   }
 };

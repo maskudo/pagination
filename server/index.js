@@ -11,6 +11,12 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/entries", entryRoutes);
+app.use((error, req, res, next) => {
+  error.statusCode = error.statusCode ?? 500;
+  res.status(error.statusCode).json({
+    message: error.message,
+  });
+});
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
   console.log("connected to mongo db");
