@@ -20,7 +20,7 @@ module.exports.postEntry = async (req, res) => {
   const { title, body, date } = req.body;
   try {
     const entry = await Entry.create({ title, body, date });
-    res.status(201).json(entry);
+    res.status(201).json({ data: entry });
   } catch (e) {
     res.status(400).json({ error: e.message });
   }

@@ -9,7 +9,6 @@ const {
 router.get("/", getEntries);
 router.get("/:id", getEntry);
 router.delete("/:id", deleteEntry);
-
 router.post("/", postEntry);
 
 module.exports = router;
