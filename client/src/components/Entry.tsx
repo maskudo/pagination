@@ -10,11 +10,11 @@ function extractDate(date: Date) {
 function Entry({ entry }: { entry: IEntry }) {
   const date = extractDate(new Date(entry.date));
   return (
-    <div>
-      <h2>{entry.title}</h2>
-      <p>{date}</p>
-      <p>{entry.body}</p>
-    </div>
+    <details className="entry min-w-[60vw] border border-gray-500 py-2 px-8">
+      <summary className="text-2xl">{entry.title}</summary>
+      <p className="text-sm">{date}</p>
+      <p className="text-xl w-[60ch] h-auto">{entry.body}</p>
+    </details>
   );
 }
 

@@ -48,45 +48,74 @@ function App() {
     }, 5000);
   };
   return (
-    <div>
-      <div>
-        <form onSubmit={submitEntry}>
-          <input
-            type="text"
-            required
-            name="title"
-            value={entry.title}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            required
-            name="body"
-            value={entry.body}
-            onChange={handleChange}
-          />
-          <input
-            type="date"
-            required
-            name="date"
-            value={entry.date}
-            onChange={handleChange}
-          />
-          <input type="submit" />
-        </form>
-        <div>{message}</div>
+    <div className="my-12 lg:mx-48 flex flex-col justify-center gap-8">
+      <h1 className="text-3xl text-center mb-8">Journal</h1>
+      <form
+        onSubmit={submitEntry}
+        className="flex justify-center items-center mx-auto gap-4 w-[60vw]"
+      >
+        <input
+          type="text"
+          className="border border-1 border-black p-2"
+          required
+          placeholder="Title"
+          name="title"
+          value={entry.title}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          className="border border-1 border-black p-2"
+          placeholder="Body"
+          required
+          name="body"
+          value={entry.body}
+          onChange={handleChange}
+        />
+        <input
+          type="date"
+          required
+          placeholder="Date"
+          className="border border-1 border-black p-2"
+          name="date"
+          value={entry.date}
+          onChange={handleChange}
+        />
+        <input
+          type="submit"
+          value={"Submit"}
+          className="bg-blue-500 text-white p-2"
+        />
+      </form>
+      <div
+        className={
+          "text-sm mx-auto " +
+          (message.toLowerCase().includes("error")
+            ? "text-red-500"
+            : "text-green-500")
+        }
+      >
+        {message}
       </div>
-      <div className="entries">
+      {!entries?.length && (
+        <div className="text-center text-3xl ">No entires found :(</div>
+      )}
+      <div className="entries mx-auto flex flex-col gap-4">
         {entries.map((entry) => (
           <Entry entry={entry} key={entry.id} />
         ))}
-        <ReactPaginate
-          pageCount={totalPages}
-          onPageChange={(e) => fetchEntries(e.selected + 1)}
-          containerClassName="pagination"
-          pageClassName="page-item"
-          activeClassName="active"
-        />
+        {!!entries.length && (
+          <ReactPaginate
+            pageCount={totalPages}
+            onPageChange={(e) => fetchEntries(e.selected + 1)}
+            containerClassName="flex justify-center items-center mt-2"
+            pageClassName="w-10 h-10 flex justify-center items-center border rounded-full mx-1"
+            activeClassName="bg-blue-500 text-white"
+            previousLabel="Prev"
+            previousClassName="mx-2 border py-1 px-2  hover:shadow"
+            nextClassName="mx-2 border py-1 px-2 hover:shadow"
+          />
+        )}
       </div>
     </div>
   );

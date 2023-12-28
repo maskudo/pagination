@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,44 +10,4 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.pagination {
-  list-style: none;
-  height: 31.5px;
-  width: 31.5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2px;
-  cursor: pointer;
-}
-
-.active {
-  background-color: #1e50ff;
-  border-radius: 50%;
-}
-
-.page-item {
-  list-style: none;
-  padding: 2px 12px;
-  height: 31.5px;
-  width: 31.5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2px;
-}
-
-.entries {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
